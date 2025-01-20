@@ -8,7 +8,7 @@ class BankAccountValidator < ::ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless self.class.validate_account_number(value, options)
-      record.errors.add(attribute, :invalid_bank_account, options)
+      record.errors.add(attribute, :invalid_bank_account, **options)
     end
   end
 

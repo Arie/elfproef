@@ -6,7 +6,7 @@ require "active_model/validations"
 class BsnValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless self.class.validate_bsn(value, options)
-      record.errors.add(attribute, :invalid_bsn, options)
+      record.errors.add(attribute, :invalid_bsn, **options)
     end
   end
 
@@ -55,4 +55,3 @@ class BsnValidator < ActiveModel::EachValidator
     sum % 11 == 0
   end
 end
-

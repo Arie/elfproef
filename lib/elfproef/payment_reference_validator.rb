@@ -8,7 +8,7 @@ class PaymentReferenceValidator < ::ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless self.class.validate_payment_reference(value, options)
-      record.errors.add(attribute, :invalid_payment_reference, options)
+      record.errors.add(attribute, :invalid_payment_reference, **options)
     end
   end
 
@@ -36,7 +36,7 @@ class PaymentReferenceValidator < ::ActiveModel::EachValidator
 
   private
 
-  # Validates the length digit. This is the second digit when 
+  # Validates the length digit. This is the second digit when
   # a payment reference is between 9 and 14 digits
   #
   # Possible values:
@@ -67,7 +67,7 @@ class PaymentReferenceValidator < ::ActiveModel::EachValidator
   #   1 when c == 11
   def self.validate_check_digit(number)
     # Remove the first digit (check digit) from the payment reference.
-    # To calculate the sum we need a 15 digit payment reference, 
+    # To calculate the sum we need a 15 digit payment reference,
     # prefix with 0 if necessary.
     reference = number[1..-1].rjust(15,"0").split("")
     weights = [10,5,8,4,2,1,6,3,7,9,10,5,8,4,2]
